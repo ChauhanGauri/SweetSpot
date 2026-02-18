@@ -41,11 +41,5 @@ The SweetSpot is a Streamlit-powered platform for data-driven pricing optimizati
 - `pricing_data.csv` — Sample dataset
 - `requirements.txt` — Python dependencies
 
-## License
-MIT License
-
-## Authors
-- Your Name
-
 ---
 *Finding the intersection of value and volume.*
