@@ -31,17 +31,14 @@ def train_model(df, price_col, demand_col, date_col):
     return model, r2
 
 def calculate_elasticity(df, price_col, demand_col):
-    """Calculates price elasticity of demand."""
-    df = df.sort_values(price_col)
-    pct_change_demand = df[demand_col].pct_change().mean()
-    pct_change_price = df[price_col].pct_change().mean()
+    df = df[(df[price_col] > 0) & (df[demand_col] > 0)].copy()
 
-    if pct_change_price != 0:
-        elasticity = pct_change_demand / pct_change_price
-    else:
-        elasticity = 0
+    df["log_price"] = np.log(df[price_col])
+    df["log_demand"] = np.log(df[demand_col])
 
-    return elasticity
+    slope, intercept = np.polyfit(df["log_price"], df["log_demand"], 1)
+
+    return slope
 
 def simulate_price(model, price, month, dayofweek, price_col):
     """Predicts units and revenue for a specific price point."""
